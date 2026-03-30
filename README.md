@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Club Selection</title>
+<title>Club Sign-Up — SJJH</title>
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Epilogue:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
 :root {
@@ -16,12 +16,10 @@
   --accent: #c8402a;
   --accent2: #2a6cc8;
   --green: #2a8a4a;
-  --yellow: #d4a017;
+  --yellow: #c9900a;
   --tag-bg: #ede9e1;
 }
-
 * { box-sizing: border-box; margin: 0; padding: 0; }
-
 body {
   font-family: 'Epilogue', sans-serif;
   background: var(--bg);
@@ -31,500 +29,255 @@ body {
 
 /* ── NAV ── */
 nav {
-  display: flex;
-  align-items: center;
-  gap: 0;
+  display: flex; align-items: center;
   background: var(--ink);
-  padding: 0 32px;
-  position: sticky;
-  top: 0;
-  z-index: 50;
+  padding: 0 28px;
+  position: sticky; top: 0; z-index: 50;
 }
-
 .nav-brand {
-  font-family: 'Syne', sans-serif;
-  font-weight: 800;
-  font-size: 1.1rem;
-  color: #fff;
-  padding: 18px 0;
-  margin-right: auto;
-  letter-spacing: 0.04em;
+  font-family: 'Syne', sans-serif; font-weight: 800;
+  font-size: 1rem; color: #fff;
+  padding: 18px 0; margin-right: auto; letter-spacing: 0.05em;
 }
-
-.nav-tab {
-  font-family: 'Syne', sans-serif;
-  font-size: 0.82rem;
-  font-weight: 600;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: rgba(255,255,255,0.5);
-  padding: 20px 20px;
-  cursor: pointer;
-  border-bottom: 3px solid transparent;
-  transition: color 0.2s, border-color 0.2s;
+.nav-admin-btn {
+  font-family: 'Syne', sans-serif; font-size: 0.75rem;
+  font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;
+  color: rgba(255,255,255,0.45); cursor: pointer;
+  padding: 8px 14px; border: 1px solid rgba(255,255,255,0.15);
+  border-radius: 6px; transition: all 0.2s; background: none;
 }
-
-.nav-tab:hover { color: rgba(255,255,255,0.85); }
-.nav-tab.active { color: #fff; border-bottom-color: var(--accent); }
+.nav-admin-btn:hover { color: #fff; border-color: rgba(255,255,255,0.4); }
+.nav-admin-btn.active { color: #fff; border-color: rgba(255,255,255,0.6); background: rgba(255,255,255,0.08); }
 
 /* ── PAGES ── */
 .page { display: none; }
 .page.active { display: block; }
 
-/* ── STUDENT PAGE ── */
-.student-wrap {
-  max-width: 780px;
-  margin: 0 auto;
-  padding: 48px 24px 80px;
-}
-
-.page-header {
-  margin-bottom: 40px;
-}
-
+/* ══ STUDENT PAGE ══ */
+.student-wrap { max-width: 760px; margin: 0 auto; padding: 48px 24px 80px; }
+.page-header { margin-bottom: 36px; }
 .page-header h1 {
-  font-family: 'Syne', sans-serif;
-  font-weight: 800;
-  font-size: clamp(2rem, 5vw, 3.2rem);
-  line-height: 1.05;
-  color: var(--ink);
+  font-family: 'Syne', sans-serif; font-weight: 800;
+  font-size: clamp(2rem, 5vw, 3rem); line-height: 1.05;
 }
+.page-header p { color: var(--muted); font-size: 0.93rem; font-weight: 300; margin-top: 8px; }
 
-.page-header p {
-  color: var(--muted);
-  font-size: 0.95rem;
-  font-weight: 300;
-  margin-top: 8px;
-}
-
-/* name input */
-.name-row {
-  display: flex;
-  gap: 12px;
-  margin-bottom: 36px;
-  align-items: flex-end;
-}
-
-.field {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-  flex: 1;
-}
-
+.name-row { display: flex; gap: 12px; margin-bottom: 32px; }
+.field { display: flex; flex-direction: column; gap: 6px; flex: 1; }
 .field label {
-  font-size: 0.75rem;
-  font-weight: 600;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: var(--muted);
+  font-size: 0.72rem; font-weight: 700; letter-spacing: 0.09em;
+  text-transform: uppercase; color: var(--muted);
 }
-
-.field input, .field select {
-  background: var(--surface);
-  border: 1.5px solid var(--border);
-  font-family: 'Epilogue', sans-serif;
-  font-size: 0.95rem;
-  color: var(--ink);
-  padding: 11px 14px;
-  border-radius: 8px;
-  outline: none;
-  transition: border-color 0.2s;
+.field input {
+  background: var(--surface); border: 1.5px solid var(--border);
+  font-family: 'Epilogue', sans-serif; font-size: 0.95rem; color: var(--ink);
+  padding: 11px 14px; border-radius: 8px; outline: none; transition: border-color 0.2s;
 }
-
-.field input:focus, .field select:focus { border-color: var(--accent2); }
+.field input:focus { border-color: var(--accent2); }
 .field input::placeholder { color: var(--muted); }
-.field input.error { border-color: var(--accent); }
+.field input.error { border-color: var(--accent); animation: shake 0.3s; }
+@keyframes shake { 0%,100%{transform:translateX(0)} 25%{transform:translateX(-5px)} 75%{transform:translateX(5px)} }
 
-/* clubs grid */
-.clubs-label {
-  font-family: 'Syne', sans-serif;
-  font-size: 0.75rem;
-  font-weight: 700;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--muted);
-  margin-bottom: 14px;
-}
-
-.clubs-instruction {
-  font-size: 0.85rem;
-  color: var(--muted);
-  font-weight: 300;
-  margin-bottom: 20px;
+.section-label {
+  font-family: 'Syne', sans-serif; font-size: 0.72rem; font-weight: 700;
+  letter-spacing: 0.09em; text-transform: uppercase; color: var(--muted); margin-bottom: 14px;
 }
 
 .clubs-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-  gap: 12px;
-  margin-bottom: 32px;
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(175px, 1fr));
+  gap: 12px; margin-bottom: 28px;
 }
-
 .club-card {
-  background: var(--surface);
-  border: 2px solid var(--border);
-  border-radius: 12px;
-  padding: 16px;
-  cursor: pointer;
+  background: var(--surface); border: 2px solid var(--border);
+  border-radius: 12px; padding: 16px; cursor: pointer;
   transition: border-color 0.18s, transform 0.15s, box-shadow 0.15s;
-  position: relative;
-  user-select: none;
+  position: relative; user-select: none;
 }
-
 .club-card:hover:not(.full):not(.selected) {
-  border-color: var(--accent2);
-  transform: translateY(-2px);
+  border-color: var(--accent2); transform: translateY(-2px);
   box-shadow: 0 6px 20px rgba(42,108,200,0.1);
 }
-
-.club-card.selected {
-  border-color: var(--accent2);
-  background: #eef3fc;
-}
-
-.club-card.full {
-  opacity: 0.5;
-  cursor: not-allowed;
-  background: var(--card);
-}
-
+.club-card.selected { border-color: var(--accent2); background: #eef3fc; }
+.club-card.full { opacity: 0.45; cursor: not-allowed; background: var(--card); }
 .club-icon { font-size: 1.8rem; margin-bottom: 8px; display: block; }
-
-.club-name {
-  font-family: 'Syne', sans-serif;
-  font-weight: 700;
-  font-size: 0.95rem;
-  margin-bottom: 6px;
-}
-
-.club-bar-wrap {
-  height: 4px;
-  background: var(--border);
-  border-radius: 99px;
-  overflow: hidden;
-  margin-bottom: 4px;
-}
-
-.club-bar {
-  height: 100%;
-  background: var(--green);
-  border-radius: 99px;
-  transition: width 0.4s ease;
-}
-
+.club-name { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 0.93rem; margin-bottom: 8px; }
+.club-bar-wrap { height: 4px; background: var(--border); border-radius: 99px; overflow: hidden; margin-bottom: 5px; }
+.club-bar { height: 100%; border-radius: 99px; background: var(--green); transition: width 0.4s ease; }
 .club-bar.warn { background: var(--yellow); }
 .club-bar.full-bar { background: var(--accent); }
-
-.club-count {
-  font-size: 0.75rem;
-  color: var(--muted);
-  font-weight: 400;
+.club-count { font-size: 0.75rem; color: var(--muted); }
+.badge {
+  position: absolute; top: 9px; right: 9px;
+  font-size: 0.62rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase;
+  padding: 2px 7px; border-radius: 99px;
 }
+.badge-full { background: var(--accent); color: #fff; }
+.badge-sel { background: var(--accent2); color: #fff; }
 
-.full-badge {
-  position: absolute;
-  top: 10px; right: 10px;
-  background: var(--accent);
-  color: #fff;
-  font-size: 0.65rem;
-  font-weight: 700;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  padding: 2px 7px;
-  border-radius: 99px;
-}
-
-.selected-badge {
-  position: absolute;
-  top: 10px; right: 10px;
-  background: var(--accent2);
-  color: #fff;
-  font-size: 0.65rem;
-  font-weight: 700;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  padding: 2px 7px;
-  border-radius: 99px;
-}
-
-/* submit */
 .btn-submit {
-  font-family: 'Syne', sans-serif;
-  font-weight: 700;
-  font-size: 0.9rem;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  background: var(--ink);
-  color: #fff;
-  border: none;
-  padding: 14px 40px;
-  border-radius: 8px;
-  cursor: pointer;
+  font-family: 'Syne', sans-serif; font-weight: 700;
+  font-size: 0.88rem; letter-spacing: 0.07em; text-transform: uppercase;
+  background: var(--ink); color: #fff; border: none;
+  padding: 14px 44px; border-radius: 8px; cursor: pointer;
   transition: background 0.15s, transform 0.12s;
 }
+.btn-submit:hover:not(:disabled) { background: #333; transform: translateY(-1px); }
+.btn-submit:disabled { background: var(--border); color: var(--muted); cursor: not-allowed; }
 
-.btn-submit:hover { background: #333; transform: translateY(-1px); }
-.btn-submit:disabled { background: var(--border); color: var(--muted); cursor: not-allowed; transform: none; }
-
-/* already submitted notice */
-.submitted-notice {
-  background: #eef6f0;
-  border: 1.5px solid #b3dfc0;
-  border-radius: 12px;
-  padding: 20px 24px;
-  margin-bottom: 28px;
+.done-box {
+  background: #eef6f0; border: 1.5px solid #b3dfc0;
+  border-radius: 12px; padding: 20px 24px; margin-bottom: 28px;
 }
+.done-box h3 { font-family: 'Syne', sans-serif; font-weight: 700; color: var(--green); margin-bottom: 4px; }
+.done-box p { font-size: 0.88rem; color: var(--muted); font-weight: 300; }
 
-.submitted-notice h3 {
-  font-family: 'Syne', sans-serif;
-  font-weight: 700;
-  font-size: 1rem;
-  color: var(--green);
-  margin-bottom: 4px;
+/* ══ LOGIN MODAL ══ */
+.modal-overlay {
+  display: none; position: fixed; inset: 0;
+  background: rgba(20,18,15,0.72); backdrop-filter: blur(6px);
+  z-index: 200; align-items: center; justify-content: center;
 }
-
-.submitted-notice p { font-size: 0.9rem; color: var(--muted); font-weight: 300; }
-
-/* ── ADMIN PAGE ── */
-.admin-wrap {
-  max-width: 1000px;
-  margin: 0 auto;
-  padding: 48px 24px 80px;
+.modal-overlay.open { display: flex; }
+.modal {
+  background: var(--surface); border: 1.5px solid var(--border);
+  border-radius: 16px; padding: 36px 40px;
+  width: 90%; max-width: 360px;
+  animation: popIn 0.28s cubic-bezier(0.34,1.56,0.64,1);
 }
-
-.admin-header {
-  display: flex;
-  align-items: baseline;
-  gap: 16px;
-  margin-bottom: 32px;
-  flex-wrap: wrap;
+@keyframes popIn { from{transform:scale(0.88);opacity:0} to{transform:scale(1);opacity:1} }
+.modal h2 { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 1.5rem; margin-bottom: 4px; }
+.modal .sub { color: var(--muted); font-size: 0.85rem; font-weight: 300; margin-bottom: 24px; }
+.modal .field { margin-bottom: 14px; }
+.login-err {
+  color: var(--accent); font-size: 0.82rem; font-weight: 500;
+  margin-bottom: 12px; display: none;
 }
-
-.admin-header h1 {
-  font-family: 'Syne', sans-serif;
-  font-weight: 800;
-  font-size: 2.2rem;
+.login-err.show { display: block; }
+.modal-btns { display: flex; gap: 10px; margin-top: 8px; }
+.btn-primary {
+  flex: 1; font-family: 'Syne', sans-serif; font-weight: 700;
+  font-size: 0.85rem; letter-spacing: 0.06em; text-transform: uppercase;
+  background: var(--ink); color: #fff; border: none;
+  padding: 12px 20px; border-radius: 8px; cursor: pointer; transition: background 0.15s;
 }
+.btn-primary:hover { background: #333; }
+.btn-cancel {
+  font-family: 'Syne', sans-serif; font-weight: 600; font-size: 0.85rem;
+  background: transparent; color: var(--muted);
+  border: 1.5px solid var(--border); padding: 12px 20px;
+  border-radius: 8px; cursor: pointer; transition: border-color 0.15s;
+}
+.btn-cancel:hover { border-color: var(--muted); }
 
+/* ══ ADMIN PAGE ══ */
+.admin-wrap { max-width: 1020px; margin: 0 auto; padding: 48px 24px 80px; }
+.admin-top {
+  display: flex; align-items: baseline; gap: 14px;
+  margin-bottom: 32px; flex-wrap: wrap;
+}
+.admin-top h1 { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 2rem; }
 .stat-pill {
-  background: var(--tag-bg);
-  border: 1px solid var(--border);
-  border-radius: 99px;
-  padding: 4px 14px;
-  font-size: 0.82rem;
-  font-weight: 600;
-  color: var(--muted);
+  background: var(--tag-bg); border: 1px solid var(--border); border-radius: 99px;
+  padding: 4px 14px; font-size: 0.8rem; font-weight: 600; color: var(--muted);
 }
+.logout-btn {
+  margin-left: auto; font-family: 'Syne', sans-serif; font-weight: 700;
+  font-size: 0.75rem; letter-spacing: 0.07em; text-transform: uppercase;
+  background: transparent; color: var(--muted); border: 1.5px solid var(--border);
+  padding: 7px 16px; border-radius: 6px; cursor: pointer; transition: all 0.15s;
+}
+.logout-btn:hover { border-color: var(--accent); color: var(--accent); }
 
-/* club summary cards */
 .summary-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
-  gap: 10px;
-  margin-bottom: 40px;
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(155px, 1fr));
+  gap: 10px; margin-bottom: 40px;
 }
-
 .sum-card {
-  background: var(--surface);
-  border: 1.5px solid var(--border);
-  border-radius: 10px;
-  padding: 14px;
+  background: var(--surface); border: 1.5px solid var(--border);
+  border-radius: 10px; padding: 14px;
 }
-
 .sum-card .s-icon { font-size: 1.4rem; }
-.sum-card .s-name {
-  font-family: 'Syne', sans-serif;
-  font-weight: 700;
-  font-size: 0.82rem;
-  margin: 6px 0 8px;
-}
-
-.sum-card .s-bar-wrap {
-  height: 6px;
-  background: var(--border);
-  border-radius: 99px;
-  overflow: hidden;
-  margin-bottom: 5px;
-}
-
-.sum-card .s-bar {
-  height: 100%;
-  border-radius: 99px;
-  background: var(--green);
-  transition: width 0.5s;
-}
-
+.sum-card .s-name { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 0.82rem; margin: 6px 0 8px; }
+.sum-card .s-bar-wrap { height: 6px; background: var(--border); border-radius: 99px; overflow: hidden; margin-bottom: 5px; }
+.sum-card .s-bar { height: 100%; border-radius: 99px; background: var(--green); transition: width 0.5s; }
 .sum-card .s-bar.warn { background: var(--yellow); }
 .sum-card .s-bar.full-bar { background: var(--accent); }
+.sum-card .s-count { font-size: 0.75rem; color: var(--muted); }
 
-.sum-card .s-count {
-  font-size: 0.75rem;
-  color: var(--muted);
-}
-
-/* student list */
-.list-controls {
-  display: flex;
-  gap: 12px;
-  margin-bottom: 20px;
-  flex-wrap: wrap;
-  align-items: center;
-}
-
+.controls { display: flex; gap: 10px; margin-bottom: 18px; flex-wrap: wrap; align-items: center; }
 .search-box {
-  flex: 1;
-  min-width: 200px;
-  background: var(--surface);
-  border: 1.5px solid var(--border);
-  font-family: 'Epilogue', sans-serif;
-  font-size: 0.9rem;
-  color: var(--ink);
-  padding: 9px 14px;
-  border-radius: 8px;
-  outline: none;
-  transition: border-color 0.2s;
+  flex: 1; min-width: 180px; background: var(--surface); border: 1.5px solid var(--border);
+  font-family: 'Epilogue', sans-serif; font-size: 0.9rem; color: var(--ink);
+  padding: 9px 14px; border-radius: 8px; outline: none; transition: border-color 0.2s;
 }
-
 .search-box:focus { border-color: var(--accent2); }
-
-.filter-select {
-  background: var(--surface);
-  border: 1.5px solid var(--border);
-  font-family: 'Epilogue', sans-serif;
-  font-size: 0.88rem;
-  color: var(--ink);
-  padding: 9px 14px;
-  border-radius: 8px;
-  outline: none;
-  cursor: pointer;
+.filter-sel {
+  background: var(--surface); border: 1.5px solid var(--border);
+  font-family: 'Epilogue', sans-serif; font-size: 0.88rem; color: var(--ink);
+  padding: 9px 14px; border-radius: 8px; outline: none; cursor: pointer;
 }
-
-.btn-export {
-  font-family: 'Syne', sans-serif;
-  font-weight: 700;
-  font-size: 0.78rem;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  background: var(--ink);
-  color: #fff;
-  border: none;
-  padding: 9px 20px;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: background 0.15s;
-  white-space: nowrap;
+.ctrl-btn {
+  font-family: 'Syne', sans-serif; font-weight: 700; font-size: 0.75rem;
+  letter-spacing: 0.06em; text-transform: uppercase;
+  padding: 9px 18px; border-radius: 8px; cursor: pointer;
+  transition: all 0.15s; white-space: nowrap; border: none;
 }
+.ctrl-btn.dark { background: var(--ink); color: #fff; }
+.ctrl-btn.dark:hover { background: #333; }
+.ctrl-btn.danger { background: transparent; color: var(--accent); border: 1.5px solid var(--accent); }
+.ctrl-btn.danger:hover { background: var(--accent); color: #fff; }
 
-.btn-export:hover { background: #333; }
-
-.btn-reset {
-  font-family: 'Syne', sans-serif;
-  font-weight: 700;
-  font-size: 0.78rem;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  background: transparent;
-  color: var(--accent);
-  border: 1.5px solid var(--accent);
-  padding: 9px 20px;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: all 0.15s;
-  white-space: nowrap;
-}
-
-.btn-reset:hover { background: var(--accent); color: #fff; }
-
-/* table */
-.table-wrap {
-  background: var(--surface);
-  border: 1.5px solid var(--border);
-  border-radius: 12px;
-  overflow: hidden;
-}
-
-table {
-  width: 100%;
-  border-collapse: collapse;
-  font-size: 0.9rem;
-}
-
+.table-wrap { background: var(--surface); border: 1.5px solid var(--border); border-radius: 12px; overflow: hidden; }
+table { width: 100%; border-collapse: collapse; font-size: 0.9rem; }
 thead th {
-  background: var(--tag-bg);
-  font-family: 'Syne', sans-serif;
-  font-weight: 700;
-  font-size: 0.72rem;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: var(--muted);
-  padding: 12px 16px;
-  text-align: left;
-  border-bottom: 1.5px solid var(--border);
+  background: var(--tag-bg); font-family: 'Syne', sans-serif; font-weight: 700;
+  font-size: 0.7rem; letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--muted); padding: 12px 16px; text-align: left; border-bottom: 1.5px solid var(--border);
 }
-
-tbody tr {
-  border-bottom: 1px solid var(--border);
-  transition: background 0.12s;
-}
-
+tbody tr { border-bottom: 1px solid var(--border); transition: background 0.12s; }
 tbody tr:last-child { border-bottom: none; }
 tbody tr:hover { background: var(--card); }
-
-tbody td {
-  padding: 11px 16px;
-  color: var(--ink);
-}
-
-.no-results {
-  text-align: center;
-  color: var(--muted);
-  font-size: 0.9rem;
-  padding: 32px;
-  font-style: italic;
-  font-weight: 300;
-}
-
+tbody td { padding: 11px 16px; }
 .club-tag {
-  display: inline-block;
-  background: var(--tag-bg);
-  border: 1px solid var(--border);
-  border-radius: 5px;
-  padding: 2px 8px;
-  font-size: 0.8rem;
-  font-weight: 500;
+  display: inline-block; background: var(--tag-bg); border: 1px solid var(--border);
+  border-radius: 5px; padding: 2px 8px; font-size: 0.8rem; font-weight: 500;
+}
+.no-results { text-align: center; color: var(--muted); font-size: 0.9rem; padding: 36px; font-style: italic; font-weight: 300; }
+
+/* ── LOADING SCREEN ── */
+#loading-screen {
+  position: fixed; inset: 0; background: var(--bg);
+  display: flex; align-items: center; justify-content: center;
+  z-index: 999; font-family: 'Syne', sans-serif; color: var(--muted);
+  font-size: 0.9rem; letter-spacing: 0.05em;
 }
 
-/* Toast */
+/* ── TOAST ── */
 #toast {
-  position: fixed;
-  bottom: 28px; left: 50%;
+  position: fixed; bottom: 28px; left: 50%;
   transform: translateX(-50%) translateY(70px);
-  background: var(--ink);
-  color: #fff;
-  padding: 12px 24px;
-  border-radius: 8px;
-  font-size: 0.9rem;
-  font-weight: 500;
+  background: var(--ink); color: #fff;
+  padding: 12px 24px; border-radius: 8px;
+  font-size: 0.9rem; font-weight: 500;
   transition: transform 0.3s cubic-bezier(0.34,1.56,0.64,1);
-  z-index: 999;
-  white-space: nowrap;
+  z-index: 999; white-space: nowrap; pointer-events: none;
 }
-
 #toast.show { transform: translateX(-50%) translateY(0); }
 
-@media (max-width: 500px) {
-  .name-row { flex-direction: column; }
-  .clubs-grid { grid-template-columns: 1fr 1fr; }
+@media(max-width:520px){
+  .name-row{flex-direction:column;}
+  .clubs-grid{grid-template-columns:1fr 1fr;}
+  .modal{padding:28px 20px;}
 }
 </style>
 </head>
 <body>
 
+<div id="loading-screen">Loading…</div>
+
 <nav>
-  <div class="nav-brand">Club Sign-Up</div>
-  <div class="nav-tab active" onclick="showPage('student')">Student</div>
-  <div class="nav-tab" onclick="showPage('admin')">Admin View</div>
+  <div class="nav-brand">SJJH · Club Sign-Up</div>
+  <button class="nav-admin-btn" id="admin-nav-btn" onclick="openAdminGate()">Admin</button>
 </nav>
 
 <!-- ══ STUDENT PAGE ══ -->
@@ -532,30 +285,27 @@ tbody td {
   <div class="student-wrap">
     <div class="page-header">
       <h1>Choose Your Club</h1>
-      <p>Select one club to join. Each club has a maximum of 25 students.</p>
+      <p>Enter your student number and name, pick one club, and submit.<br>Each club has a maximum of 25 spots.</p>
     </div>
 
-    <div id="already-notice" style="display:none" class="submitted-notice">
-      <h3>✓ Already submitted</h3>
-      <p id="already-text"></p>
+    <div id="done-box" class="done-box" style="display:none">
+      <h3>✓ Submission received</h3>
+      <p id="done-text"></p>
     </div>
 
     <div class="name-row">
       <div class="field">
         <label>Student Number</label>
-        <input type="text" id="student-num" placeholder="e.g. S001" maxlength="20" />
+        <input id="inp-num" type="text" placeholder="e.g. S042" maxlength="20" />
       </div>
       <div class="field">
         <label>Full Name</label>
-        <input type="text" id="student-name" placeholder="Your name" maxlength="60" />
+        <input id="inp-name" type="text" placeholder="Your full name" maxlength="60" />
       </div>
     </div>
 
-    <div class="clubs-label">Available Clubs</div>
-    <div class="clubs-instruction">Click a club to select it, then press Submit.</div>
-
+    <div class="section-label">Select a Club</div>
     <div class="clubs-grid" id="clubs-grid"></div>
-
     <button class="btn-submit" id="submit-btn" disabled>Submit Selection</button>
   </div>
 </div>
@@ -563,31 +313,25 @@ tbody td {
 <!-- ══ ADMIN PAGE ══ -->
 <div class="page" id="page-admin">
   <div class="admin-wrap">
-    <div class="admin-header">
-      <h1>All Submissions</h1>
+    <div class="admin-top">
+      <h1>Admin Dashboard</h1>
       <span class="stat-pill" id="total-count">0 / 130 students</span>
+      <button class="logout-btn" onclick="logout()">Log out</button>
     </div>
-
     <div class="summary-grid" id="summary-grid"></div>
-
-    <div class="list-controls">
+    <div class="controls">
       <input class="search-box" type="text" id="search-input" placeholder="Search by name or number…" oninput="renderTable()" />
-      <select class="filter-select" id="filter-club" onchange="renderTable()">
+      <select class="filter-sel" id="filter-club" onchange="renderTable()">
         <option value="">All Clubs</option>
       </select>
-      <button class="btn-export" onclick="exportCSV()">Export CSV</button>
-      <button class="btn-reset" onclick="resetAll()">Reset All</button>
+      <button class="ctrl-btn dark" onclick="exportCSV()">Export CSV</button>
+      <button class="ctrl-btn danger" onclick="resetAll()">Reset All</button>
     </div>
-
     <div class="table-wrap">
       <table>
         <thead>
           <tr>
-            <th>#</th>
-            <th>Student No.</th>
-            <th>Name</th>
-            <th>Club</th>
-            <th>Time</th>
+            <th>#</th><th>Student No.</th><th>Name</th><th>Club</th><th>Submitted At</th>
           </tr>
         </thead>
         <tbody id="student-table"></tbody>
@@ -597,278 +341,312 @@ tbody td {
   </div>
 </div>
 
+<!-- ══ LOGIN MODAL ══ -->
+<div class="modal-overlay" id="login-modal">
+  <div class="modal">
+    <h2>Admin Login</h2>
+    <p class="sub">Enter your administrator credentials to view submissions.</p>
+    <div class="field">
+      <label>Account</label>
+      <input id="login-user" type="text" placeholder="Username" autocomplete="off" />
+    </div>
+    <div class="field">
+      <label>Password</label>
+      <input id="login-pass" type="password" placeholder="Password" />
+    </div>
+    <div class="login-err" id="login-err">Incorrect account or password.</div>
+    <div class="modal-btns">
+      <button class="btn-cancel" onclick="closeModal()">Cancel</button>
+      <button class="btn-primary" onclick="attemptLogin()">Log In</button>
+    </div>
+  </div>
+</div>
+
 <div id="toast"></div>
 
 <script>
-// ── CONFIG ──
+// ══ CONFIG ══
 const CLUBS = [
-  { id: 'dance',    name: 'Dance',    icon: '💃', max: 25 },
-  { id: 'movie',    name: 'Movie',    icon: '🎬', max: 25 },
-  { id: 'badminton',name: 'Badminton',icon: '🏸', max: 25 },
-  { id: 'makeup',   name: 'Makeup',   icon: '💄', max: 25 },
-  { id: 'tennis',   name: 'Tennis',   icon: '🎾', max: 25 },
-  { id: 'go',       name: 'Go',       icon: '⬛', max: 25 },
-  { id: 'chess',    name: 'Chess',    icon: '♟️', max: 25 },
-  { id: 'handball', name: 'Handball', icon: '🤾', max: 25 },
+  { id:'dance',     name:'Dance',     icon:'💃', max:25 },
+  { id:'movie',     name:'Movie',     icon:'🎬', max:25 },
+  { id:'badminton', name:'Badminton', icon:'🏸', max:25 },
+  { id:'makeup',    name:'Makeup',    icon:'💄', max:25 },
+  { id:'tennis',    name:'Tennis',    icon:'🎾', max:25 },
+  { id:'go',        name:'Go',        icon:'⬛', max:25 },
+  { id:'chess',     name:'Chess',     icon:'♟️', max:25 },
+  { id:'handball',  name:'Handball',  icon:'🤾', max:25 },
 ];
+const ADMIN_USER = 'sjjh313';
+const ADMIN_PASS = 'sjjh313';
+const KEY = 'sjjh_club_v1';
 
-// ── STATE (localStorage) ──
-function getSubmissions() {
-  try { return JSON.parse(localStorage.getItem('club_submissions') || '[]'); } catch { return []; }
+// ══ STORAGE — shared across all users ══
+async function loadSubs() {
+  try {
+    const r = await window.storage.get(KEY, true);
+    return r ? JSON.parse(r.value) : [];
+  } catch {
+    try { return JSON.parse(localStorage.getItem(KEY) || '[]'); } catch { return []; }
+  }
+}
+async function saveSubs(arr) {
+  try {
+    await window.storage.set(KEY, JSON.stringify(arr), true);
+  } catch {
+    localStorage.setItem(KEY, JSON.stringify(arr));
+  }
+}
+function counts(subs) {
+  const c = {};
+  CLUBS.forEach(cl => c[cl.id] = 0);
+  subs.forEach(s => { if (c[s.clubId] !== undefined) c[s.clubId]++; });
+  return c;
 }
 
-function saveSubmissions(arr) {
-  localStorage.setItem('club_submissions', JSON.stringify(arr));
-}
-
-function clubCounts() {
-  const counts = {};
-  CLUBS.forEach(c => counts[c.id] = 0);
-  getSubmissions().forEach(s => { if (counts[s.clubId] !== undefined) counts[s.clubId]++; });
-  return counts;
-}
-
-// ── NAVIGATION ──
-function showPage(page) {
-  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-  document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
-  document.getElementById('page-' + page).classList.add('active');
-  document.querySelectorAll('.nav-tab')[page === 'student' ? 0 : 1].classList.add('active');
-  if (page === 'admin') renderAdmin();
-  if (page === 'student') renderStudentPage();
-}
-
-// ── TOAST ──
+// ══ TOAST ══
 function toast(msg) {
   const t = document.getElementById('toast');
   t.textContent = msg;
   t.classList.add('show');
-  setTimeout(() => t.classList.remove('show'), 2800);
+  setTimeout(() => t.classList.remove('show'), 3000);
 }
 
-// ── STUDENT PAGE ──
+// ══ AUTH ══
+let adminLoggedIn = false;
+
+function openAdminGate() {
+  if (adminLoggedIn) { showAdmin(); return; }
+  document.getElementById('login-user').value = '';
+  document.getElementById('login-pass').value = '';
+  document.getElementById('login-err').classList.remove('show');
+  document.getElementById('login-modal').classList.add('open');
+  setTimeout(() => document.getElementById('login-user').focus(), 120);
+}
+function closeModal() {
+  document.getElementById('login-modal').classList.remove('open');
+}
+function attemptLogin() {
+  const u = document.getElementById('login-user').value.trim();
+  const p = document.getElementById('login-pass').value;
+  if (u === ADMIN_USER && p === ADMIN_PASS) {
+    adminLoggedIn = true;
+    closeModal();
+    showAdmin();
+  } else {
+    document.getElementById('login-err').classList.add('show');
+    document.getElementById('login-pass').value = '';
+    document.getElementById('login-pass').focus();
+  }
+}
+document.getElementById('login-pass').addEventListener('keydown', e => { if (e.key === 'Enter') attemptLogin(); });
+document.getElementById('login-user').addEventListener('keydown', e => { if (e.key === 'Enter') document.getElementById('login-pass').focus(); });
+
+function logout() {
+  adminLoggedIn = false;
+  document.getElementById('admin-nav-btn').classList.remove('active');
+  showPage('student');
+  renderStudentPage();
+}
+
+// ══ NAVIGATION ══
+function showPage(id) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.getElementById('page-' + id).classList.add('active');
+}
+async function showAdmin() {
+  document.getElementById('admin-nav-btn').classList.add('active');
+  showPage('admin');
+  await renderAdmin();
+}
+
+// ══ STUDENT PAGE ══
 let selectedClub = null;
 
-function renderStudentPage() {
+async function renderStudentPage() {
   selectedClub = null;
-  const counts = clubCounts();
+  const subs = await loadSubs();
+  const c = counts(subs);
   const grid = document.getElementById('clubs-grid');
   grid.innerHTML = '';
 
   CLUBS.forEach(club => {
-    const count = counts[club.id];
-    const isFull = count >= club.max;
-    const pct = Math.round((count / club.max) * 100);
+    const cnt = c[club.id];
+    const full = cnt >= club.max;
+    const pct = Math.round((cnt / club.max) * 100);
+    const barCls = pct >= 100 ? 'full-bar' : pct >= 80 ? 'warn' : '';
 
     const card = document.createElement('div');
-    card.className = 'club-card' + (isFull ? ' full' : '');
+    card.className = 'club-card' + (full ? ' full' : '');
     card.dataset.id = club.id;
-
-    let barClass = '';
-    if (pct >= 100) barClass = 'full-bar';
-    else if (pct >= 80) barClass = 'warn';
-
     card.innerHTML = `
       <span class="club-icon">${club.icon}</span>
       <div class="club-name">${club.name}</div>
-      <div class="club-bar-wrap"><div class="club-bar ${barClass}" style="width:${pct}%"></div></div>
-      <div class="club-count">${count} / ${club.max}</div>
-      ${isFull ? '<span class="full-badge">Full</span>' : ''}
+      <div class="club-bar-wrap"><div class="club-bar ${barCls}" style="width:${pct}%"></div></div>
+      <div class="club-count">${cnt} / ${club.max}</div>
+      ${full ? '<span class="badge badge-full">Full</span>' : ''}
     `;
-
-    if (!isFull) {
-      card.addEventListener('click', () => selectClub(club.id));
-    }
-
+    if (!full) card.addEventListener('click', () => pickClub(club.id));
     grid.appendChild(card);
   });
-
-  updateSubmitBtn();
-  checkAlreadySubmitted();
+  updateBtn();
 }
 
-function checkAlreadySubmitted() {
-  const numVal = document.getElementById('student-num').value.trim();
-  const subs = getSubmissions();
-  const existing = numVal ? subs.find(s => s.studentNum === numVal) : null;
-  const notice = document.getElementById('already-notice');
-  const alreadyText = document.getElementById('already-text');
-
-  if (existing) {
-    const club = CLUBS.find(c => c.id === existing.clubId);
-    notice.style.display = 'block';
-    alreadyText.textContent = `${existing.name} (${existing.studentNum}) already selected ${club?.icon} ${club?.name}.`;
-  } else {
-    notice.style.display = 'none';
-  }
-}
-
-function selectClub(id) {
+function pickClub(id) {
   selectedClub = id;
-  document.querySelectorAll('.club-card').forEach(card => {
-    const isSelected = card.dataset.id === id;
-    card.classList.toggle('selected', isSelected);
-    // update badge
-    const old = card.querySelector('.selected-badge');
+  document.querySelectorAll('.club-card:not(.full)').forEach(card => {
+    const on = card.dataset.id === id;
+    card.classList.toggle('selected', on);
+    const old = card.querySelector('.badge-sel');
     if (old) old.remove();
-    if (isSelected) {
-      const badge = document.createElement('span');
-      badge.className = 'selected-badge';
-      badge.textContent = '✓ Selected';
-      card.appendChild(badge);
+    if (on) {
+      const b = document.createElement('span');
+      b.className = 'badge badge-sel'; b.textContent = '✓';
+      card.appendChild(b);
     }
   });
-  updateSubmitBtn();
+  updateBtn();
 }
 
-function updateSubmitBtn() {
-  const name = document.getElementById('student-name').value.trim();
-  const num = document.getElementById('student-num').value.trim();
+function updateBtn() {
+  const name = document.getElementById('inp-name').value.trim();
+  const num = document.getElementById('inp-num').value.trim();
   document.getElementById('submit-btn').disabled = !(name && num && selectedClub);
 }
+document.getElementById('inp-name').addEventListener('input', updateBtn);
+document.getElementById('inp-num').addEventListener('input', updateBtn);
 
-document.getElementById('student-name').addEventListener('input', updateSubmitBtn);
-document.getElementById('student-num').addEventListener('input', () => { updateSubmitBtn(); checkAlreadySubmitted(); });
-
-document.getElementById('submit-btn').addEventListener('click', () => {
-  const name = document.getElementById('student-name').value.trim();
-  const num = document.getElementById('student-num').value.trim();
+document.getElementById('submit-btn').addEventListener('click', async () => {
+  const name = document.getElementById('inp-name').value.trim();
+  const num = document.getElementById('inp-num').value.trim();
   if (!name || !num || !selectedClub) return;
 
-  const subs = getSubmissions();
-
-  // Check duplicate student number
+  const subs = await loadSubs();
   if (subs.find(s => s.studentNum === num)) {
-    document.getElementById('student-num').classList.add('error');
+    const el = document.getElementById('inp-num');
+    el.classList.add('error');
     toast('⚠ This student number has already submitted.');
-    setTimeout(() => document.getElementById('student-num').classList.remove('error'), 1500);
+    setTimeout(() => el.classList.remove('error'), 800);
     return;
   }
 
-  // Check capacity again
-  const counts = clubCounts();
-  const club = CLUBS.find(c => c.id === selectedClub);
-  if (counts[selectedClub] >= club.max) {
+  const c = counts(subs);
+  const club = CLUBS.find(cl => cl.id === selectedClub);
+  if (c[selectedClub] >= club.max) {
     toast('⚠ That club just filled up. Please choose another.');
-    renderStudentPage();
+    await renderStudentPage();
     return;
   }
 
   subs.push({
-    studentNum: num,
-    name,
+    studentNum: num, name,
     clubId: selectedClub,
-    time: new Date().toLocaleString()
+    time: new Date().toLocaleString('zh-TW', { hour12: false })
   });
-  saveSubmissions(subs);
+  await saveSubs(subs);
 
-  toast(`✓ ${name} joined ${club.icon} ${club.name}!`);
-  document.getElementById('student-name').value = '';
-  document.getElementById('student-num').value = '';
+  document.getElementById('done-text').textContent =
+    `${name} (${num}) has been registered for ${club.icon} ${club.name}.`;
+  document.getElementById('done-box').style.display = 'block';
+  toast(`✓ Joined ${club.icon} ${club.name}!`);
+
+  document.getElementById('inp-name').value = '';
+  document.getElementById('inp-num').value = '';
   selectedClub = null;
-  renderStudentPage();
+  await renderStudentPage();
 });
 
-// ── ADMIN PAGE ──
-function renderAdmin() {
-  const subs = getSubmissions();
-  const counts = clubCounts();
-
-  // total
+// ══ ADMIN PAGE ══
+async function renderAdmin() {
+  const subs = await loadSubs();
+  const c = counts(subs);
   document.getElementById('total-count').textContent = `${subs.length} / 130 students`;
 
-  // summary cards
+  // Summary
   const sg = document.getElementById('summary-grid');
   sg.innerHTML = '';
   CLUBS.forEach(club => {
-    const count = counts[club.id];
-    const pct = Math.round((count / club.max) * 100);
-    let barClass = pct >= 100 ? 'full-bar' : pct >= 80 ? 'warn' : '';
+    const cnt = c[club.id];
+    const pct = Math.round((cnt / club.max) * 100);
+    const barCls = pct >= 100 ? 'full-bar' : pct >= 80 ? 'warn' : '';
     const card = document.createElement('div');
     card.className = 'sum-card';
     card.innerHTML = `
       <div class="s-icon">${club.icon}</div>
       <div class="s-name">${club.name}</div>
-      <div class="s-bar-wrap"><div class="s-bar ${barClass}" style="width:${pct}%"></div></div>
-      <div class="s-count">${count} / ${club.max}</div>
+      <div class="s-bar-wrap"><div class="s-bar ${barCls}" style="width:${pct}%"></div></div>
+      <div class="s-count">${cnt} / ${club.max}</div>
     `;
     sg.appendChild(card);
   });
 
-  // filter dropdown
-  const filterSel = document.getElementById('filter-club');
-  filterSel.innerHTML = '<option value="">All Clubs</option>';
-  CLUBS.forEach(c => {
-    const opt = document.createElement('option');
-    opt.value = c.id;
-    opt.textContent = `${c.icon} ${c.name}`;
-    filterSel.appendChild(opt);
+  // Filter dropdown
+  const sel = document.getElementById('filter-club');
+  sel.innerHTML = '<option value="">All Clubs</option>';
+  CLUBS.forEach(cl => {
+    const o = document.createElement('option');
+    o.value = cl.id; o.textContent = `${cl.icon} ${cl.name}`;
+    sel.appendChild(o);
   });
 
-  renderTable();
+  renderTable(subs);
 }
 
-function renderTable() {
-  const subs = getSubmissions();
+async function renderTable(subsArg) {
+  const subs = subsArg !== undefined ? subsArg : await loadSubs();
   const search = document.getElementById('search-input').value.trim().toLowerCase();
-  const filterClub = document.getElementById('filter-club').value;
+  const fc = document.getElementById('filter-club').value;
 
-  let filtered = subs.filter(s => {
-    const matchSearch = !search ||
-      s.name.toLowerCase().includes(search) ||
-      s.studentNum.toLowerCase().includes(search);
-    const matchClub = !filterClub || s.clubId === filterClub;
-    return matchSearch && matchClub;
-  });
+  const filtered = subs.filter(s =>
+    (!search || s.name.toLowerCase().includes(search) || s.studentNum.toLowerCase().includes(search)) &&
+    (!fc || s.clubId === fc)
+  );
 
   const tbody = document.getElementById('student-table');
   tbody.innerHTML = '';
+  document.getElementById('no-results').style.display = filtered.length === 0 ? 'block' : 'none';
 
-  if (filtered.length === 0) {
-    document.getElementById('no-results').style.display = 'block';
-  } else {
-    document.getElementById('no-results').style.display = 'none';
-    filtered.forEach((s, i) => {
-      const club = CLUBS.find(c => c.id === s.clubId);
-      const tr = document.createElement('tr');
-      tr.innerHTML = `
-        <td style="color:var(--muted);font-size:0.8rem">${i + 1}</td>
-        <td style="font-family:'Syne',sans-serif;font-weight:600;font-size:0.85rem">${s.studentNum}</td>
-        <td>${s.name}</td>
-        <td><span class="club-tag">${club?.icon} ${club?.name || s.clubId}</span></td>
-        <td style="color:var(--muted);font-size:0.8rem">${s.time}</td>
-      `;
-      tbody.appendChild(tr);
-    });
-  }
+  filtered.forEach((s, i) => {
+    const club = CLUBS.find(cl => cl.id === s.clubId);
+    const tr = document.createElement('tr');
+    tr.innerHTML = `
+      <td style="color:var(--muted);font-size:0.78rem">${i + 1}</td>
+      <td style="font-family:'Syne',sans-serif;font-weight:700;font-size:0.85rem">${s.studentNum}</td>
+      <td>${s.name}</td>
+      <td><span class="club-tag">${club?.icon} ${club?.name || s.clubId}</span></td>
+      <td style="color:var(--muted);font-size:0.8rem">${s.time}</td>
+    `;
+    tbody.appendChild(tr);
+  });
 }
 
-function exportCSV() {
-  const subs = getSubmissions();
-  if (subs.length === 0) { toast('No data to export.'); return; }
-  const rows = [['Student Number', 'Name', 'Club', 'Time']];
+async function exportCSV() {
+  const subs = await loadSubs();
+  if (!subs.length) { toast('No data to export.'); return; }
+  const rows = [['Student Number','Name','Club','Submitted At']];
   subs.forEach(s => {
-    const club = CLUBS.find(c => c.id === s.clubId);
+    const club = CLUBS.find(cl => cl.id === s.clubId);
     rows.push([s.studentNum, s.name, club?.name || s.clubId, s.time]);
   });
   const csv = rows.map(r => r.map(v => `"${v}"`).join(',')).join('\n');
-  const blob = new Blob([csv], { type: 'text/csv' });
   const a = document.createElement('a');
-  a.href = URL.createObjectURL(blob);
-  a.download = 'club_selections.csv';
+  a.href = URL.createObjectURL(new Blob(['\uFEFF' + csv], {type:'text/csv;charset=utf-8'}));
+  a.download = 'sjjh_club_selections.csv';
   a.click();
   toast('CSV exported!');
 }
 
-function resetAll() {
-  if (!confirm('Reset ALL submissions? This cannot be undone.')) return;
-  localStorage.removeItem('club_submissions');
+async function resetAll() {
+  if (!confirm('Delete ALL submissions? This cannot be undone.')) return;
+  await saveSubs([]);
   toast('All submissions cleared.');
-  renderAdmin();
+  await renderAdmin();
 }
 
-// ── INIT ──
-renderStudentPage();
+// ══ INIT ══
+(async () => {
+  await renderStudentPage();
+  document.getElementById('loading-screen').style.display = 'none';
+})();
 </script>
 </body>
 </html>
